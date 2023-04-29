@@ -20,12 +20,13 @@ package main
 import (
 	"context"
 	"fmt"
-	log "github.com/sirupsen/logrus"
-	"github.com/stretchr/testify/require"
 	"os"
 	"strconv"
 	"testing"
 	"time"
+
+	log "github.com/sirupsen/logrus"
+	"github.com/stretchr/testify/require"
 )
 
 type TestStorageWrapper struct {
@@ -51,7 +52,8 @@ func NewTestStorageWrapper(t *testing.T) *TestStorageWrapper {
 
 	storage, err := NewMongoStorage(mongoHost, port, dbName)
 	require.NoError(t, err)
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 
 	return &TestStorageWrapper{
 		DbName:  dbName,
