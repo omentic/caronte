@@ -1,5 +1,5 @@
 # Build backend with go
-FROM golang:1.16 AS BACKEND_BUILDER
+FROM golang:1.20 AS BACKEND_BUILDER
 
 # Install tools and libraries
 RUN apt-get update && \
