@@ -13,8 +13,9 @@ WORKDIR /caronte
 
 COPY . ./
 
+RUN go mod download
+
 RUN export VERSION=$(git describe --tags --abbrev=0) && \
-    go mod download && \
     go build -ldflags "-X main.Version=$VERSION" && \
 	mkdir -p build && \
 	cp -r caronte pcaps/ scripts/ shared/ test_data/ build/
