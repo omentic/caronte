@@ -52,8 +52,7 @@ func NewTestStorageWrapper(t *testing.T) *TestStorageWrapper {
 
 	storage, err := NewMongoStorage(mongoHost, port, dbName)
 	require.NoError(t, err)
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 
 	return &TestStorageWrapper{
 		DbName:  dbName,
