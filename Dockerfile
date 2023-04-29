@@ -24,12 +24,17 @@ RUN export VERSION=$(git describe --tags --abbrev=0) && \
 # Build frontend via yarn
 FROM node:16 as FRONTEND_BUILDER
 
+ENV PNPM_VERSION 8.3.1
+RUN npm install -g pnpm@${PNPM_VERSION}
 WORKDIR /caronte-frontend
-COPY ./frontend/package.json ./frontend/yarn.lock ./
-RUN yarn install --frozen-lockfile
+
+# pnpm fetch does require only lockfile
+COPY ./frontend/pnpm-lock.yaml ./
+RUN pnpm fetch --prod
+
 
 COPY ./frontend ./
-RUN yarn install && yarn build --production=true
+RUN pnpm install && pnpm build
 
 
 # LAST STAGE
