@@ -115,6 +115,23 @@ func CreateApplicationRouter(applicationContext *ApplicationContext,
 			}
 		})
 
+		api.DELETE("/rules/:id", func(c *gin.Context) {
+			hex := c.Param("id")
+			id, err := RowIDFromHex(hex)
+			if err != nil {
+				badRequest(c, err)
+				return
+			}
+
+			err = applicationContext.RulesManager.DeleteRule(c, id)
+			if err != nil {
+				notFound(c, UnorderedDocument{"id": id})
+			} else {
+				success(c, UnorderedDocument{})
+				notificationController.Notify("rules.delete", UnorderedDocument{"id": id})
+			}
+		})
+
 		api.PUT("/rules/:id", func(c *gin.Context) {
 			hex := c.Param("id")
 			id, err := RowIDFromHex(hex)
