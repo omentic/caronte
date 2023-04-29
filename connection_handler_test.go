@@ -199,6 +199,10 @@ func (rm TestRulesManager) AddRule(_ context.Context, _ Rule) (RowID, error) {
 	return RowID{}, nil
 }
 
+func (rm TestRulesManager) DeleteRule(_ context.Context, _ RowID) error {
+	return nil
+}
+
 func (rm TestRulesManager) GetRule(_ RowID) (Rule, bool) {
 	return Rule{}, false
 }
