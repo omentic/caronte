@@ -24,9 +24,10 @@ RUN export VERSION=$(git describe --tags --abbrev=0) && \
 FROM node:16 as FRONTEND_BUILDER
 
 WORKDIR /caronte-frontend
+COPY ./frontend/package.json ./frontend/yarn.lock ./
+RUN yarn install --frozen-lockfile
 
 COPY ./frontend ./
-
 RUN yarn install && yarn build --production=true
 
 
