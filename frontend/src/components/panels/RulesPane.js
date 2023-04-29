@@ -322,8 +322,15 @@ class RulesPane extends Component {
                 <td>{p["min_occurrences"]}</td>
                 <td>{p["max_occurrences"]}</td>
                 <td>{this.directions[p.direction]}</td>
-                {!isUpdate && <td><ButtonField variant="blue" small rounded name="edit"
-                    onClick={() => this.editPattern(p)} /></td>}
+                <td>
+                    <ButtonField
+                        variant="blue"
+                        small
+                        rounded
+                        name="edit"
+                        onClick={() => this.editPattern(p)}
+                    />
+                </td>
             </tr>
         );
 
@@ -382,16 +389,25 @@ class RulesPane extends Component {
 
                                 <Col style={{ "paddingTop": "6px" }}>
                                     <span>filters:</span>
-                                    <NumericField name="service_port" inline value={rule.filter["service_port"]}
+                                    <NumericField name="service_port"
+                                        inline
+                                        value={rule.filter["service_port"]}
                                         onChange={(v) => this.updateParam((r) => r.filter["service_port"] = v)}
-                                        min={0} max={65565} error={this.state.ruleServicePortError}
-                                        readonly={isUpdate} />
-                                    <NumericField name="client_port" inline value={rule.filter["client_port"]}
+                                        min={0}
+                                        max={65565}
+                                        error={this.state.ruleServicePortError}
+                                    />
+                                    <NumericField name="client_port"
+                                        inline
+                                        value={rule.filter["client_port"]}
                                         onChange={(v) => this.updateParam((r) => r.filter["client_port"] = v)}
-                                        min={0} max={65565} error={this.state.ruleClientPortError}
-                                        readonly={isUpdate} />
-                                    <InputField name="client_address" value={rule.filter["client_address"]}
-                                        error={this.state.ruleClientAddressError} readonly={isUpdate}
+                                        min={0}
+                                        max={65565}
+                                        error={this.state.ruleClientPortError}
+                                    />
+                                    <InputField name="client_address"
+                                        value={rule.filter["client_address"]}
+                                        error={this.state.ruleClientAddressError}
                                         onChange={(v) => this.updateParam((r) => r.filter["client_address"] = v)} />
                                 </Col>
 
