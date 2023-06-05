@@ -224,6 +224,7 @@ func (pi *PcapImporter) parsePcap(session ImportingSession, fileName string, flu
 
 			if packet.NetworkLayer() == nil || packet.TransportLayer() == nil ||
 				packet.TransportLayer().LayerType() != layers.LayerTypeTCP { // invalid packet
+				log.Warn("Invalid packet: no network or transport layer")
 				session.InvalidPackets++
 				continue
 			}
@@ -241,6 +242,7 @@ func (pi *PcapImporter) parsePcap(session ImportingSession, fileName string, flu
 				servicePort = uint16(tcp.SrcPort)
 				index = 1
 			} else {
+				log.Warn("Invalid packet: source and destination are the same")
 				session.InvalidPackets++
 				continue
 			}
