@@ -222,8 +222,15 @@ func (pi *PcapImporter) parsePcap(session ImportingSession, fileName string, flu
 
 			session.ProcessedPackets++
 
-			if packet.NetworkLayer() == nil || packet.TransportLayer() == nil ||
-				packet.TransportLayer().LayerType() != layers.LayerTypeTCP { // invalid packet
+			if packet.NetworkLayer() == nil {
+				log.Warn("Invalid packet: no network layer")
+				session.InvalidPackets++
+				continue
+			} else if packet.TransportLayer() == nil {
+				log.Warn("Invalid packet: no transport layer")
+				session.InvalidPackets++
+				continue
+			} else if packet.TransportLayer().LayerType() != layers.LayerTypeTCP {
 				log.Warn("Invalid packet: no network or transport layer")
 				session.InvalidPackets++
 				continue
