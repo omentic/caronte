@@ -26,13 +26,15 @@ import (
 
 var Version string
 
-func main() {
-	mongoHost := flag.String("mongo-host", "localhost", "address of MongoDB")
-	mongoPort := flag.Int("mongo-port", 27017, "port of MongoDB")
-	dbName := flag.String("db-name", "caronte", "name of database to use")
+var (
+	mongoHost   = flag.String("mongo-host", "localhost", "address of MongoDB")
+	mongoPort   = flag.Int("mongo-port", 27017, "port of MongoDB")
+	dbName      = flag.String("db-name", "caronte", "name of database to use")
+	bindAddress = flag.String("bind-address", "0.0.0.0", "address where server is bind")
+	bindPort    = flag.Int("bind-port", 3333, "port where server is bind")
+)
 
-	bindAddress := flag.String("bind-address", "0.0.0.0", "address where server is bind")
-	bindPort := flag.Int("bind-port", 3333, "port where server is bind")
+func main() {
 
 	flag.Parse()
 
