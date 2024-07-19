@@ -91,10 +91,10 @@ func CreateApplicationRouter(applicationContext *ApplicationContext,
 				return
 			}
 
-			if id, err := applicationContext.RulesManager.AddRule(c, rule); err != nil {
+			if rule, err := applicationContext.RulesManager.AddRule(c, rule); err != nil {
 				unprocessableEntity(c, err)
 			} else {
-				response := UnorderedDocument{"id": id}
+				response := UnorderedDocument{"id": rule.ID, "name": rule.Name}
 				success(c, response)
 				notificationController.Notify("rules.new", response)
 			}
