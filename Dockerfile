@@ -38,8 +38,7 @@ RUN pnpm install && pnpm build
 
 
 # LAST STAGE
-FROM ubuntu:20.04
-
+FROM ubuntu:22.04
 COPY --from=BACKEND_BUILDER /caronte/build /opt/caronte
 
 COPY --from=FRONTEND_BUILDER /caronte-frontend/build /opt/caronte/frontend/build
