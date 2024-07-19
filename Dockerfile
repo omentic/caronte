@@ -1,5 +1,5 @@
 # Build backend with go
-FROM golang:1.20 AS BACKEND_BUILDER
+FROM golang:1.20 AS backend_builder
 
 # Install tools and libraries
 RUN apt-get update && \
@@ -17,7 +17,7 @@ RUN export VERSION=$(git describe --tags --abbrev=0) && \
 	cp -r caronte pcaps/ scripts/ shared/ test_data/ build/
 
 # Build frontend via yarn
-FROM node:16 as FRONTEND_BUILDER
+FROM node:16 AS frontend_builder
 ENV PNPM_VERSION 8.3.1
 RUN npm install -g pnpm@${PNPM_VERSION}
 WORKDIR /caronte-frontend
@@ -31,8 +31,8 @@ RUN pnpm install && pnpm build
 
 # LAST STAGE
 FROM ubuntu:22.04
-COPY --from=BACKEND_BUILDER /caronte/build /opt/caronte
-COPY --from=FRONTEND_BUILDER /caronte-frontend/build /opt/caronte/frontend/build
+COPY --from=backend_builder /caronte/build /opt/caronte
+COPY --from=frontend_builder /caronte-frontend/build /opt/caronte/frontend/build
 RUN apt-get update && \
 	DEBIAN_FRONTEND=noninteractive apt-get install -qq \
 	libpcap-dev \
