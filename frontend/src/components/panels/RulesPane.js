@@ -174,7 +174,7 @@ class RulesPane extends Component {
             valid = false;
         }
         if (rule.patterns.length < 1) {
-            this.setState({ rulePatternsError: "patterns.length < 1" });
+            this.setState({ rulePatternsError: "no patterns added" });
             valid = false;
         }
 
@@ -433,14 +433,14 @@ class RulesPane extends Component {
                                 <thead>
                                     <tr>
                                         <th>regex</th>
-                                        <th>!Aa</th>
-                                        <th>.*</th>
-                                        <th>\n+</th>
-                                        <th>UTF8</th>
-                                        <th>Uni_</th>
-                                        <th>min</th>
-                                        <th>max</th>
-                                        <th>direction</th>
+                                        <th title="Set case-insensitive matching">!Aa</th>
+                                        <th title="Matching a `.` will not exclude newlines">.*</th>
+                                        <th title="Set multi-line anchoring">\n+</th>
+                                        <th title="Enable UTF-8 mode for this expression">UTF8</th>
+                                        <th title="Enable Unicode property support for this expression">Uni_</th>
+                                        <th title="Set minimum occurences">min</th>
+                                        <th title="Set maximum occurences">max</th>
+                                        <th title="Match conversation direction">direction</th>
                                         {!isUpdate && <th>actions</th>}
                                     </tr>
                                 </thead>
@@ -455,9 +455,9 @@ class RulesPane extends Component {
 
                     <div className="section-footer">
                         {<ButtonField variant="red" name="cancel" bordered onClick={this.reset} />}
+                        { isUpdate && <ButtonField variant="red" name="delete_rule" bordered onClick={this.deleteRule} />}
                         <ButtonField variant={isUpdate ? "blue" : "green"} name={isUpdate ? "update_rule" : "add_rule"}
                             bordered onClick={isUpdate ? this.updateRule : this.addRule} />
-                        <ButtonField variant="red" name="delete_rule" bordered onClick={this.deleteRule} />
                     </div>
                 </div>
             </div>
