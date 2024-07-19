@@ -455,9 +455,9 @@ class RulesPane extends Component {
 
                     <div className="section-footer">
                         {<ButtonField variant="red" name="cancel" bordered onClick={this.reset} />}
-                        { isUpdate && <ButtonField variant="red" name="delete_rule" bordered onClick={this.deleteRule} />}
-                        <ButtonField variant={isUpdate ? "blue" : "green"} name={isUpdate ? "update_rule" : "add_rule"}
-                            bordered onClick={isUpdate ? this.updateRule : this.addRule} />
+                        {isUpdate && <ButtonField variant="red" name="delete_rule" bordered onClick={this.deleteRule} />}
+                        {!isUpdate && <ButtonField variant={isUpdate ? "blue" : "green"} name={isUpdate ? "update_rule" : "add_rule"}
+                            bordered onClick={isUpdate ? this.updateRule : this.addRule} />}
                     </div>
                 </div>
             </div>
